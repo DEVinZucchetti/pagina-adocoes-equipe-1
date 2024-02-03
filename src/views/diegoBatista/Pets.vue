@@ -3,17 +3,17 @@
     <h1 class="title">Encontre seu melhor amigo</h1>
     <!-- input para filtro-->
     <div class="filter-section">
-      <input v-model="filter.name" placeholder="Nome">
-      <input v-model="filter.specie" placeholder="Espécie">
-      <input v-model="filter.age" placeholder="Idade" type="number">
-      <select v-model="filter.size">
+      <input v-model="filter.name" placeholder="Nome" type="text" >
+      <input v-model="filter.specie" placeholder="Espécie" type="text" >
+      <input v-model="filter.age" placeholder="Idade" type="number" >
+      <select v-model="filter.size" >
         <option value="" selected>Tamanho</option>
         <option value="SMALL">SMALL</option>
         <option value="MEDIUM">MEDIUM</option>
         <option value="LARGE">LARGE</option>
         <option value="EXTRA_LARGE">EXTRA_LARGE</option>        
       </select>
-      <button @click="applyFilter">Filtrar</button>
+      <button class="button-action" @click="applyFilter">Filtrar</button>
     </div>
     <div class="pet-list">
       <div class="pet-item" v-for="pet in pets" :key="pet.id" @click="redirectToProfile(pet.id)">
@@ -112,5 +112,50 @@ export default {
   border-radius: 50%;
   margin-top: 20px;
 
+}
+/* css para inputs dos filtros */
+
+.filter-section{
+  display: flex;  
+  flex-direction: row;
+  align-items: flex-start;  
+  gap: 5px; 
+  justify-content: center; 
+}
+
+.filter-section input[type="text"],
+.filter-section input[type="number"],
+.filter-section select {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+  line-height: 10px;
+  width: 100%; 
+}
+
+.filter-section input[type="text"]:focus,
+.filter-section input[type="number"]:focus,
+.filter-section select:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+.filter-section button {
+  padding: 5px 20px;
+  background-color: #007bff;
+  border: none;
+  border-radius: 4px;
+  color: white;
+  cursor: pointer;
+  font-size: 16px;
+  line-height: 24px;
+  text-align: center;
+  text-decoration: none;
+}
+
+.filter-section button:hover {
+  background-color: #0056b3;
 }
 </style>
