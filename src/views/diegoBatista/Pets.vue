@@ -1,11 +1,24 @@
 <template>
   <div class="main-content">
     <h1 class="title">Encontre seu melhor amigo</h1>
+    <!-- input para filtro-->
+    <div class="filter-section">
+      <input v-model="filter.name" placeholder="Nome">
+      <input v-model="filter.specie" placeholder="Espécie">
+      <input v-model="filter.age" placeholder="Idade" type="number">
+      <select v-model="filter.size">
+        <option value="" selected>Tamanho</option>
+        <option value="SMALL">SMALL</option>
+        <option value="MEDIUM">MEDIUM</option>
+        <option value="LARGE">LARGE</option>
+        <option value="EXTRA_LARGE">EXTRA_LARGE</option>        
+      </select>
+      <button @click="applyFilter">Filtrar</button>
+    </div>
     <div class="pet-list">
       <div class="pet-item" v-for="pet in pets" :key="pet.id" @click="redirectToProfile(pet.id)">
-        <img
-          src="https://encurtador.com.br/ckA59" alt="img-pet">
-        <span class="name-description">{{pet.pet_name}}</span>
+        <img src="https://encurtador.com.br/ckA59" alt="img-pet">
+        <span class="name-description">{{ pet.pet_name }}</span>
       </div>
     </div>
   </div>
@@ -14,25 +27,40 @@
 <script>
 import axios from 'axios'
 
-export default{
+export default {
 
-  data(){
-    return{
-      pets:[]
+  data() {
+    return {
+      pets: [],
+      filter: {
+        name: '',
+        specie: '',
+        age: null,
+        size: '',
+      }
     }
   },
-  methods:{
-    redirectToProfile(petId){
+  methods: {
+    redirectToProfile(petId) {
       this.$router.push(`/pets-adocao/${petId}/perfil`)
-    }
+    },
+    applyFilter() {
+    axios.get("http://localhost:8000/api/pets/adocao", {
+      params: this.filter // Passa os filtros como parâmetros de consulta
+    })
+    .then((response) => {
+      this.pets = response.data;
+    })
+    .catch(error => console.error("Erro ao aplicar filtros", error));
+  }
   },
 
-  mounted(){
+  mounted() {
     axios.get("http://localhost:8000/api/pets/adocao")
-    .then((response)=>{
-      this.pets = response.data
-      console.log(response.data)
-    })
+      .then((response) => {
+        this.pets = response.data
+        console.log(response.data)
+      })
   }
 }
 </script>
@@ -42,24 +70,27 @@ export default{
   font-size: 44px;
   color: rgb(236, 99, 19);
 }
+
 .name-description {
   font-size: 18px;
   font-weight: bold;
   color: rgb(236, 99, 19);
 }
-.main-content{
-width:80%;
-margin: 0% auto;
+
+.main-content {
+  width: 80%;
+  margin: 0% auto;
 }
+
 .pet-list {
   margin-top: 50px;
-  display: flex;  
+  display: flex;
   flex-wrap: wrap;
   gap: 10px;
 }
 
 .pet-item {
-  border: 1px solid; 
+  border: 1px solid;
   padding: 5px;
   width: 300px;
   height: 200px;
@@ -71,15 +102,15 @@ margin: 0% auto;
   box-shadow: 0 3px 10px rgb(0 0 0 / 0.3);
 }
 
-.pet-item:hover{
+.pet-item:hover {
   box-shadow: 0 3px 10px rgb(0 0 0 / 2);
 }
 
 .pet-item img {
   width: 200px;
-  border: 1.5px solid; 
+  border: 1.5px solid;
   border-radius: 50%;
   margin-top: 20px;
-  
+
 }
 </style>
