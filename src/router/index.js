@@ -3,7 +3,9 @@ import { createRouter, createWebHistory } from 'vue-router'
 import Main from '../views/Main.vue'
 import Home1 from '../views/pessoa1/Home.vue'
 import Home2 from '../views/pessoa2/Home.vue'
-import Home3 from '../views/pessoa3/Home.vue'
+import Home from '../views/Thiago/HomeView.vue'
+import PetsList from '../views/Thiago/PetsList.vue'
+import PetsProfile from '../views/Thiago/PetsProfile.vue'
 import Home4 from '../views/pessoa4/Home.vue'
 
 const router = createRouter({
@@ -25,9 +27,19 @@ const router = createRouter({
       component: Home2
     },
     {
-      path: '/home3',
-      name: 'home3',
-      component: Home3
+      path: '/home',
+      name: 'home',
+      component: Home
+    },
+    {
+      path: '/pets-adocao',
+      name: 'PetsList',
+      component: PetsList
+    },
+    {
+      path: '/pets-adocao/:id/perfil',
+      name: 'PetsProfile',
+      component: PetsProfile
     },
     {
       path: '/home4',

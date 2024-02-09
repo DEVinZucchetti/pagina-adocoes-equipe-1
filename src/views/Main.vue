@@ -16,7 +16,7 @@
     <div class="adocao-home">
       <h1>Adote pet 3</h1>
       <button @click="entrar3">Ver Animais</button>
-      <p>Criado por: Henrique 3</p>
+      <p>Criado por: Thiago</p>
     </div>
     <hr />
     <div class="adocao-home">
@@ -38,7 +38,7 @@ export default {
       this.$router.push('home2')
     },
     entrar3() {
-      this.$router.push('home3')
+      this.$router.push('home')
     },
     entrar4() {
       this.$router.push('home4')
