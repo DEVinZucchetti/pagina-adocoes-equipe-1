@@ -1,3 +1,4 @@
+<!-- eslint-disable vue/multi-word-component-names -->
 <template>
   <div class="main-content">
     <h1 class="title">Encontre seu melhor amigo</h1>
@@ -16,7 +17,7 @@
       <button class="button-action" @click="applyFilter">Filtrar</button>
     </div>
     <div class="pet-list">
-      <div class="pet-item" v-for="pet in pets" :key="pet.id" @click="redirectToProfile(pet.id)">
+      <div class="pet-item" v-for="pet in pets" :key="pet.id" @click="redirectToProfile(pet.id)" data-test="item-pet">
         <img src="https://encurtador.com.br/ckA59" alt="img-pet">
         <span class="name-description">{{ pet.pet_name }}</span>
       </div>
@@ -25,6 +26,8 @@
 </template>
 
 <script>
+
+import PetService from '../../services/PetService'
 import axios from 'axios'
 
 export default {
@@ -56,10 +59,10 @@ export default {
   },
 
   mounted() {
-    axios.get("http://localhost:8000/api/pets/adocao")
-      .then((response) => {
-        this.pets = response.data
-        console.log(response.data)
+    PetService.getAllPets()
+      .then((data) => {
+        this.pets = data
+    
       })
   }
 }
