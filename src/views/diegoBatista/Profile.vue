@@ -22,21 +22,21 @@
           <p class="name-description">Poucos passos para adotar</p>
           <div class="input-form">
             <label>Nome</label>
-            <input v-model="name" />
+            <input v-model="name" data-test="name" />
           </div>
           <div class="input-form">
             <label>Contato</label>
-            <input v-model="contact" />
+            <input v-model="contact" data-test="contact" />
           </div>
           <div class="input-form">
             <label>Email</label>
-            <input v-model="email" type="email" />
+            <input v-model="email" type="email" data-test="email" />
           </div>
           <div class="input-form">
             <label>Fale um pouco sobre a sua motivação de adotar esse pet:</label>
-            <textarea v-model="observations" />
+            <textarea v-model="observations" data-test="observations" />
           </div>
-          <button type="submit" class="button-action">Cadastrar</button>
+          <button type="submit" class="button-action" data-test="submit-button">Cadastrar</button>
         </form>
       </div>
     </div>
@@ -44,7 +44,6 @@
 </template>
 
 <script>
-import axios from 'axios';
 import PetService from '@/services/PetService';
 
 export default {
@@ -59,12 +58,13 @@ export default {
   },
   methods: {
     handleSubmit() {
-      axios.post("http://127.0.0.1:8000/api/adocoes", {
+      PetService.adoptPet({
         name: this.name,
         email: this.email,
         contact: this.contact,
         observations: this.observations,
       })
+
         .then(() => {
           alert("Cadastrado com sucesso")
         })
@@ -115,13 +115,16 @@ export default {
 .content-left {
   width: 70%;
 }
-.content-right{
+
+.content-right {
   width: 70%;
 }
-.content-right img{
+
+.content-right img {
   box-shadow: 0 3px 10px rgb(0 0 0 / 1);
   border-radius: 1%;
 }
+
 .form-content {
   width: 90%;
   margin: 0% auto;
@@ -157,7 +160,7 @@ export default {
 }
 
 textarea {
-  height: 100px; 
+  height: 100px;
 }
 
 

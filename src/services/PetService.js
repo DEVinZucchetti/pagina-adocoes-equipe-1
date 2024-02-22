@@ -15,6 +15,13 @@ class PetService{
 
         return response.data;
     }
+
+    async adoptPet(){
+
+        const response = await axios.get("http://127.0.0.1:8000/api/adocoes");
+
+        return response.data;
+    }
 }
 
 export default new PetService;
