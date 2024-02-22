@@ -1,3 +1,4 @@
+<!-- eslint-disable vue/multi-word-component-names -->
 <template>
   <div class="main-content">
     <h1 class="title">Encontre seu melhor amigo</h1>

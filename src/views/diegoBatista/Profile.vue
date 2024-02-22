@@ -1,3 +1,4 @@
+<!-- eslint-disable vue/multi-word-component-names -->
 <template>
   <div v-if="pet" class="main-content">
     <h1 class="name-animal">{{ pet.name }}</h1>
@@ -44,6 +45,7 @@
 
 <script>
 import axios from 'axios';
+import PetService from '@/services/PetService';
 
 export default {
   data() {
@@ -73,9 +75,9 @@ export default {
   },
   mounted() {
     const id = this.$route.params.id
-    axios.get(`http://127.0.0.1:8000/api/pets/${id}`)
-      .then((response) => {
-        this.pet = response.data
+    PetService.getOnePet(id)
+      .then((data) => {
+        this.pet = data
       })
   }
 }
